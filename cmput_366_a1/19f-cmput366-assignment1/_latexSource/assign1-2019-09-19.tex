@@ -1,0 +1,306 @@
+\documentclass[10pt]{article}
+
+%\usepackage{url}
+\usepackage{hyperref}
+\usepackage{fullpage}
+\usepackage{graphicx,curves}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{theapa}
+%\usepackage{cmbright}
+%\usepackage{times}
+%\usepackage{helvet}
+%\usepackage{courier}
+\usepackage{latexsym}
+\usepackage{multirow}
+\usepackage{algorithm} 
+\usepackage{algorithmic}
+\usepackage{wrapfig}
+%\usepackage{pxfonts}
+\usepackage{color}
+
+\usepackage[bitstream-charter]{mathdesign}
+%\renewcommand*\ttdefault{lmvtt}
+\usepackage[T1]{fontenc}
+
+\newtheorem{df}{Definition}
+\newtheorem{notation}{Notation}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{col}{Corollary}
+\newcommand{\bt}{\begin{theorem}\em}
+\newcommand{\et}{\end{theorem}\vspace{-0.15cm}}
+\newcommand{\bl}{\begin{lemma}\em}
+\newcommand{\el}{\end{lemma}}
+\newcommand{\bc}{\begin{col}\em}
+\newcommand{\ec}{\end{col}}
+\newcommand{\Qed}{$\blacksquare$}
+\newcommand{\qed}{$\Box$\vspace{0.0cm}}
+\newcommand{\proof}{{\bf Proof. }}
+\newcommand{\nin}{\noindent}
+\newcommand{\bea}{\begin{eqnarray}}
+\newcommand{\eea}{\end{eqnarray}}
+\newcommand{\bdf}{\begin{df}\em}
+\newcommand{\edf}{\end{df}}
+\newcommand{\ben}{\begin{enumerate}}
+\newcommand{\een}{\end{enumerate}}
+\newcommand{\ie}{\item}
+\newcommand{\bei}{\begin{itemize}}
+\newcommand{\eei}{\end{itemize}}
+
+% MATLAB colors: https://www.mathworks.com/help/matlab/ref/matlab.graphics.chart.primitive.histogram-properties.html
+\definecolor{m1}{rgb}{0,0.4470,0.7410}
+\definecolor{m2}{rgb}{0.8500,0.3250,0.0980}
+\definecolor{m3}{rgb}{0.9290,0.6940,0.1250}
+\definecolor{m4}{rgb}{0.4940,0.1840,0.5560}
+\definecolor{m5}{rgb}{0.4660,0.6740,0.1880}
+\definecolor{m6}{rgb}{0.3010,0.7450,0.9330}
+\definecolor{m7}{rgb}{0.6350,0.0780,0.1840}
+
+\newcommand{\tcb}[1]{\textcolor{m1}{#1}}
+\newcommand{\tco}[1]{\textcolor{m2}{#1}}
+\newcommand{\tcv}[1]{\textcolor{m4}{#1}}
+\newcommand{\tcg}[1]{\textcolor{m5}{#1}}
+\newcommand{\tcm}[1]{\textcolor{m7}{#1}}
+
+\newcommand{\dist}{\operatorname{dist}}
+\newcommand{\avg}{\operatorname{avg}}
+
+%%%%%%%%% James' macros and packages %%%%%%%%%%%%%%%%%
+
+\newcounter{totalpoints}
+\setcounter{totalpoints}{0}
+\newcommand{\points}[1]{{\addtocounter{totalpoints}{#1}\tcv{[#1 points]}}}
+\usepackage{totcount}
+\regtotcounter{totalpoints}
+
+\usepackage{environ}
+\usepackage{etoolbox}
+\makeatletter
+\NewEnviron{answer}[1]
+{\ifx\BODY\@empty
+ \vspace{#1}%
+\else
+ \medskip
+ \tcb{\sf \BODY}%
+\fi}
+\makeatother
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+
+\begin{document}
+
+%\begin{wrapfigure}[0]{r}[0pt]{7cm}
+\begin{figure}[t!]
+\begin{center}
+\includegraphics[width=6.5cm]{csLogo.pdf} %\hspace{2cm}
+%\includegraphics[width=5.5cm]{biowareLogo.pdf}
+\vspace{-1cm}
+\end{center}
+\end{figure}
+%\end{wrapfigure}
+
+
+
+\sloppy
+
+
+\title{\bf CMPUT 366: Assignment \#1}
+
+\author{\tcm{Due at 10pm on October 3, 2019}}
+
+\date{}
+
+
+
+
+\maketitle
+
+\begin{abstract}
+\nin For this assignment use the following consultation model: \bei
+
+\ie you can discuss assignment questions and exchange ideas with other CMPUT 366 students;
+
+\ie you must list all members of the discussion in your solution;
+
+\ie you may {\bf not} share/exchange/discuss written material and/or code;
+
+\ie you must write up your solutions individually;
+
+\ie you must fully understand and be able to explain your solution in any amount of detail as requested by the instructor and/or the TAs.
+
+\eei
+
+\nin Anything that you use in your work and that is not your own creation must be properly cited by listing the original source. Failing to cite others' work is plagiarism and will be dealt with as an academic offence.
+\end{abstract}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\vspace{2cm}
+\hspace{1cm}{\bf First name:} \underline{\hspace{7cm}}
+
+\vspace{1cm}
+\hspace{1cm}{\bf Last name:} \underline{\hspace{7cm}}
+
+\vspace{1cm}
+\hspace{1cm}{\bf CCID:} \underline{\hspace{5.5cm}}\verb|@ualberta.ca|
+
+\vspace{1cm}
+\hspace{1cm}{\bf Collaborators:} \underline{\hspace{6.5cm}}
+
+\vspace{3cm}
+{\Large\tcv{{\bf Your mark:} \underline{\hspace{1cm}} out of \total{totalpoints}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\clearpage
+\section{}
+\points{15} \label{q:searchProblem}
+Construct a search graph with \textbf{no more than 10 nodes} for which all of the following are true:
+\ben
+\ie Least-cost first search returns an optimal solution.
+\ie Breadth-first search returns the highest-cost solution.
+\ie Depth-first search returns a solution whose cost is strictly less than the highest-cost solution and strictly more than the least-cost solution.
+\een
+Feel free to include multiple goal nodes in your graph. Be sure to list the start and goal node(s), all edge costs and all edge directions (if your graph is directed). Draw the graph as well.
+
+\begin{answer}{3in}
+% Put your answer here
+\end{answer}
+
+
+\section{} 
+\points{5} 
+List the paths that are removed from the frontier by a depth-first search of the search problem you gave for Question~\ref{q:searchProblem}, in the order in which they are removed from the frontier. Stop the trace when the path removed ends in a goal state.
+
+\begin{answer}{1.2in}
+% Put your answer here
+\end{answer}
+
+\clearpage\section{} 
+\points{5} 
+List the paths that are removed from the frontier by a breadth-first search of the search problem you gave for Question~\ref{q:searchProblem}, in the order in which they are removed from the frontier. Stop the trace when the path removed ends in a goal state.
+
+\begin{answer}{1.2in}
+% put your answer here
+\end{answer}
+
+\section{} 
+\points{5} 
+List the paths that are removed from the frontier by a least-cost first search of the search problem you gave for Question~\ref{q:searchProblem}, in the order in which they are removed from the frontier. Stop the trace when the path removed ends in a goal state.
+
+\begin{answer}{1.2in}
+% put your answer here
+\end{answer}
+
+\section{} \label{q:gbfs}
+\points{2} 
+Come up with a {\em solvable} four-node search graph on which greedy best-first search (\tcb{PM 3.6}) never reaches the goal. The four nodes should include the start node and the goal node. Draw the four-node graph below. Label each edge with its cost and each node with its heuristic value. The heuristic must be admissible. Mark the start node and the goal node.
+
+\begin{answer}{0.75in}
+% put your answer here
+\end{answer}
+
+\section{} 
+\points{2} 
+Trace the greedy best-first search on the search problem you came up with for Question~\ref{q:gbfs} and list the paths that get removed from the frontier. Stop the trace after showing that the algorithm will never reach the goal node.
+
+\begin{answer}{1.5in}
+% put your answer here
+\end{answer}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\clearpage\section{} 
+\points{6} \label{q:hen}
+A farmer needs to move a hen, a fox, and a bushel of grain from the left side of the river to the right using a raft.
+The farmer can take one item at a time (hen, fox, or bushel of grain) using the raft.
+The hen cannot be left alone with the grain, or it will eat the grain.
+The fox cannot be left alone with the hen, or it will eat the hen.
+For example, the farmer cannot move from one side $x$ of the river to the other side $y$ if it would mean leaving the fox and hen together on side $x$.
+%
+The farmer can load an item onto the raft, move the raft from one side of the river to the other, or unload an item from the raft.  The farmer wants to move the items with the fewest number of trips across the river as possible.
+
+Classify this problem using the primary representational dimensions covered in the lectures.
+
+\begin{answer}{0.5in}
+    % put your answer here
+\end{answer}
+
+\section{}
+\points{20} \label{q:construct-rep}
+Represent the problem in Question~\ref{q:hen} as a graph search problem: define the set of states/nodes, the start node, the goal node(s). Define the edges via defining neighbours of each state obtained via the farmer's actions. Define costs of each edge. You do not have to draw the graph or explicitly list all nodes and edges.
+
+\begin{answer}{3in}
+    % put your answer here
+\end{answer}
+
+\clearpage\section{} \points{5}
+What is the branching factor for your graph from Question~\ref{q:construct-rep}?  Justify your answer.
+
+\begin{answer}{2in}
+    % put your answer here
+\end{answer}
+
+
+\section{} \points{10} \label{q:construct-h}
+Construct a non-constant admissible heuristic for the problem in Question~\ref{q:hen}.
+
+\begin{answer}{2in}
+    % put your answer here
+\end{answer}
+
+
+\section{} \points{5}
+Prove that your heuristic for Question~\ref{q:construct-h} is indeed admissible.
+
+\begin{answer}{2in}
+    % put your answer here
+\end{answer}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\clearpage
+\section{} \points{60} \label{q:code}
+Implement your representation from Question~\ref{q:construct-rep} and heuristic from Question~\ref{q:construct-h} in Python~3 by editing the \verb|River_problem| class in the provided \texttt{riverProblem.py}.
+We will run your code with the command \verb|python3 riverProblem_run.py|.
+Your code must complete within 2~minutes for full marks.\footnote{It should really run in far less time than this.}
+
+\medskip
+
+\nin Submit all of your code (including provided boilerplate files) in a single zip file.
+
+\vspace{2cm}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Submission}
+
+The assignment you downloaded from eClass is a single ZIP archive which includes this document as a PDF {\em and} its \LaTeX{} source as well as Python files needed for Question~\ref{q:code}.
+%
+You are to unzip the archive into an empty directory, work on the problems and then zip the directory into a new single ZIP archive for submission.
+
+\medskip
+
+\nin Each assignment is to be submitted electronically via eClass by the due date.  \tcm{Your submission must be a single ZIP file containing}: 
+\ben
+\ie a single PDF file with your answers;
+\ie file(s) with your Python code.
+\een
+
+\nin To generate the PDF file with your answers you can do any of the following:
+\bei
+
+\ie insert your answers into the provided \LaTeX{} source file between \verb|\begin{answer}| and \verb|\end{answer}|. Then run the source through \LaTeX{} to produce a PDF file;
+
+\ie print out the provided PDF file and legibly write your answers in the blank spaces under each question. Make sure you write as legibly as possible for we cannot give you any points if we cannot read your hand-writing. Then scan the pages and include the scan in your ZIP submission to be uploaded on eClass;
+
+\ie use your favourite text processor and type up your answers there. Make sure you number your answers in the same way as the questions are numbered in this assignment.
+
+\eei
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%{\small \bibliographystyle{theapa}
+%\bibliography{bibliography}}
+
+\end{document}

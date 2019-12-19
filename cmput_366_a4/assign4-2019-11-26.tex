@@ -1,0 +1,372 @@
+\documentclass[12pt]{article}
+
+\usepackage{url}
+%\usepackage{hyperref}
+\usepackage{fullpage}
+\usepackage{graphicx,curves}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{theapa}
+\usepackage{latexsym}
+\usepackage{multirow}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[algoruled,vlined,linesnumbered]{algorithm2e}
+\usepackage{booktabs}
+\usepackage{units}
+\usepackage{listings}
+
+% Fonts
+%\usepackage{cmbright}
+%\usepackage{times}
+%\usepackage{helvet}
+%\usepackage{courier}
+
+%\usepackage[bitstream-charter]{mathdesign}
+%\usepackage[adobe-utopia]{mathdesign}
+%\usepackage[T1]{fontenc}
+
+%\usepackage[sfdefault,light]{roboto}  
+%\usepackage[T1]{fontenc}
+
+\newtheorem{df}{Definition}
+\newtheorem{notation}{Notation}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{col}{Corollary}
+\newcommand{\bt}{\begin{theorem}\em}
+\newcommand{\et}{\end{theorem}\vspace{-0.15cm}}
+\newcommand{\bl}{\begin{lemma}\em}
+\newcommand{\el}{\end{lemma}}
+\newcommand{\bc}{\begin{col}\em}
+\newcommand{\ec}{\end{col}}
+\newcommand{\Qed}{$\blacksquare$}
+\newcommand{\qed}{$\Box$\vspace{0.0cm}}
+\newcommand{\proof}{{\bf Proof. }}
+\newcommand{\nin}{\noindent}
+\newcommand{\bea}{\begin{eqnarray}}
+\newcommand{\eea}{\end{eqnarray}}
+\newcommand{\bdf}{\begin{df}\em}
+\newcommand{\edf}{\end{df}}
+\newcommand{\ben}{\begin{enumerate}}
+\newcommand{\een}{\end{enumerate}}
+\newcommand{\ie}{\item}
+\newcommand{\bei}{\begin{itemize}}
+\newcommand{\eei}{\end{itemize}}
+
+\newcommand{\argmin}{\operatornamewithlimits{argmin}\limits}
+
+% MATLAB colors: https://www.mathworks.com/help/matlab/ref/matlab.graphics.chart.primitive.histogram-properties.html
+\definecolor{m1}{rgb}{0,0.4470,0.7410}
+\definecolor{m2}{rgb}{0.8500,0.3250,0.0980}
+\definecolor{m3}{rgb}{0.9290,0.6940,0.1250}
+\definecolor{m4}{rgb}{0.4940,0.1840,0.5560}
+\definecolor{m5}{rgb}{0.4660,0.6740,0.1880}
+\definecolor{m6}{rgb}{0.3010,0.7450,0.9330}
+\definecolor{m7}{rgb}{0.6350,0.0780,0.1840}
+
+\newcommand{\tcb}[1]{\textcolor{m1}{#1}}
+\newcommand{\tco}[1]{\textcolor{m2}{#1}}
+\newcommand{\tcv}[1]{\textcolor{m4}{#1}}
+\newcommand{\tcg}[1]{\textcolor{m5}{#1}}
+\newcommand{\tcm}[1]{\textcolor{m7}{#1}}
+
+\newcommand{\dist}{\operatorname{dist}}
+\newcommand{\avg}{\operatorname{avg}}
+
+%%%%%%%%% James' macros and packages %%%%%%%%%%%%%%%%%
+
+\newcounter{totalpoints}
+\setcounter{totalpoints}{0}
+\newcommand{\points}[1]{{\addtocounter{totalpoints}{#1}\tcv{[#1 points]}}}
+\usepackage{totcount}
+\regtotcounter{totalpoints}
+
+\usepackage{environ}
+\usepackage{etoolbox}
+\makeatletter
+\NewEnviron{answer}[1]
+{\ifx\BODY\@empty
+ \vspace{#1}%
+\else
+ \medskip
+ \tcb{\sf \BODY}%
+\fi}
+\makeatother
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+
+\begin{document}
+
+%\begin{wrapfigure}[0]{r}[0pt]{7cm}
+\begin{figure}[t!]
+\begin{center}
+\includegraphics[width=6.5cm]{csLogo.pdf} %\hspace{2cm}
+%\includegraphics[width=5.5cm]{biowareLogo.pdf}
+\vspace{-1cm}
+\end{center}
+\end{figure}
+%\end{wrapfigure}
+
+
+
+\sloppy
+
+
+\title{\bf CMPUT 366: Assignment \#4}
+
+\author{\tcm{Due at 10pm on December 5, 2019}}
+
+\date{}
+
+
+\maketitle
+
+\begin{abstract}
+{\scriptsize \nin For this assignment use the following consultation model: \bei
+
+\ie you can discuss assignment questions and exchange ideas with other CMPUT 366 students;
+
+\ie you must list all members of the discussion in your solution;
+
+\ie you may {\bf not} share/exchange/discuss written material and/or code;
+
+\ie you must write up your solutions individually;
+
+\ie you must fully understand and be able to explain your solution in any amount of detail as requested by the instructor and/or the TAs.
+
+\eei
+
+\nin Anything that you use in your work and that is not your own creation must be properly cited by listing the original source. Failing to cite others' work is plagiarism and will be dealt with as an academic offence.}
+\end{abstract}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\vspace{0.3cm}
+\hspace{1cm}{\bf First name:} \underline{\hspace{7cm}}
+
+\vspace{0.3cm}
+\hspace{1cm}{\bf Last name:} \underline{\hspace{7.1cm}}
+
+\vspace{0.3cm}
+\hspace{1cm}{\bf CCID:} \underline{\hspace{5.5cm}}\verb|@ualberta.ca|
+
+\vspace{0.3cm}
+\hspace{1cm}{\bf Collaborators:} \underline{\hspace{6.5cm}}
+
+\vspace{0.3cm}
+\hspace{1cm}{\tcv{{\bf Your mark:} \underline{\hspace{1cm}} {\bf out of \total{totalpoints}}}
+
+\bigskip
+
+\section*{Submission}
+
+{\scriptsize The assignment you downloaded from eClass is a single ZIP archive which includes this document as a PDF file as well as its \LaTeX{} source and support files for the programming questions. Your answers are to be submitted electronically via eClass.  Your submission must be a single ZIP file containing a single PDF file with all of your answers as well as your Python code for the coding questions. To generate the PDF file you can do any of the following:
+\ben
+
+\ie insert your answers into the provided \LaTeX{} source file between \verb|\begin{answer}| and \verb|\end{answer}|. Then run the source through \LaTeX{} to produce a PDF file;
+
+\ie write your answers in the blank spaces under each question. Make sure you write as legibly as possible and scan the written pages properly for we cannot give you any points if we cannot read your hand-writing;
+
+\ie use your favourite text processor and type up your answers there. Make sure you number your answers in the same way as the questions are numbered in this assignment.
+
+\een}
+
+\clearpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Supervised Learning: Short Answers}
+
+\subsection{}\points{2} Why is error on the training dataset not a good estimate for generalization performance?
+
+\begin{answer}{5\baselineskip}
+% type your answer here
+\end{answer}
+
+\subsection{} \points{2} Give an expression for the value of a single rectified linear unit (relu), with inputs $x_1,x_2$, weights $w_1,w_2$, and bias $b$.
+
+\begin{answer}{5\baselineskip}
+% type your answer here
+\end{answer}
+
+\subsection{} \points{2} Why are convolutional networks more efficient to train than fully-connected feed-forward networks?
+
+\begin{answer}{5\baselineskip}
+% type your answer here
+\end{answer}
+
+\subsection{} \points{2}
+What is overfitting?
+
+\begin{answer}{5\baselineskip}
+% type your answer here
+\end{answer}
+
+\subsection{}  \points{2}
+List two strategies to avoid overfitting.
+
+\begin{answer}{5\baselineskip}
+% type your answer here
+\end{answer}
+
+\subsection{} \points{3}
+    What is the output of a \emph{convolution} operation on the matrix\\
+    $\mathbf{X} = \begin{bmatrix}
+                      1 & 0 & 0 \\
+                      0 & 1 & 0 \\
+                      1 & 0 & 1
+                  \end{bmatrix}$
+    using kernel $\begin{bmatrix}
+                      2 & -1 \\
+                      -1 & 1
+                  \end{bmatrix}$?
+
+\begin{answer}{2in}
+% type your answer here
+\end{answer}
+
+\subsection{} \points{3}
+    What is the output of a $2\times2$ \emph{maximum pooling} operation on the matrix
+    $\mathbf{X} = \begin{bmatrix}
+                      8 & 1 & 2 \\
+                      3 & 4 & 1 \\
+                      2 & 3 & 9
+                  \end{bmatrix}$?
+
+\begin{answer}{3in}
+% type your answer here
+\end{answer}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Supervised Learning: Errors \& Classifiers}
+
+Consider the following dataset about the edibility of an imaginary family of plants:
+\begin{center}
+    \begin{tabular}{c|cccc}
+        \toprule
+        example & spots & rings & leaves & edible\\
+        \midrule
+        $e_1$ & $0$ & $3$  & $6$ & $1$ \\        
+        $e_2$ & $0$ & $6$  & $3$ & $0$ \\
+        $e_3$ & $0$ & $7$  & $2$ & $0$ \\
+        $e_4$ & $0$ & $9$ & $3$ & $0$ \\
+        $e_5$ & $0$ & $10$ & $5$ & $1$ \\
+        $e_6$ & $1$ & $0$  & $2$ & $0$ \\
+        $e_7$ & $1$ & $1$  & $4$ & $0$ \\
+        $e_8$ & $1$ & $2$  & $2$ & $1$ \\
+        $e_9$ & $1$ & $2$  & $3$ & $1$ \\
+        $e_{10}$ & $1$ & $4$  & $2$ & $1$ \\
+        \bottomrule
+    \end{tabular}
+\end{center}
+
+\subsection{} 
+\points{3}
+    What is the 0/1 error on the above dataset of the following hypothesis?
+    \[\widehat{edible}(e) = \begin{cases}
+                              1 &\text{if } spots(e) = 1,\\
+                              0 &\text{otherwise.}
+                            \end{cases}\]
+    
+\begin{answer}{1in}
+% type your answer here
+\end{answer}
+    
+    \subsection{} \points{3}
+    What is the mean squared error on the above dataset of the following hypothesis?
+    \[\widehat{edible}(e) = \begin{cases}
+                              0.8 &\text{if } rings(e) \le 4,\\
+                              0.2 &\text{otherwise.}
+                            \end{cases}\]
+    
+\begin{answer}{1in}
+% type your answer here
+\end{answer}
+
+\clearpage\subsection{} \points{5}
+What is the log loss of a decision tree which has only a single test $spots = 0?$ and whose two leaf nodes make the best probabilistic predictions on the target value $edible$? Use the binary logarithm and show your work.
+ 
+\begin{answer}{1.5in}
+% type your answer here
+\end{answer}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Deep Learning}
+
+The MNIST dataset is a set of images of handwritten digits labelled by their actual digit.
+We will operate on two versions of this dataset: 
+\ben
+\ie {\tt upper-left:} with the images shifted $2$ pixels to the upper left;
+\ie {\tt bottom-right:} with the images shifted $2$ pixels to the bottom right.
+\een
+These questions require the use of TensorFlow.  You may need to install Tensorflow using the following command: \texttt{pip3 install tensorflow}
+
+\subsection{}
+\points{10}
+Implement a fully-connected feed-forward neural network for classifying MNIST images according to the digit that they represent by editing the \verb|mlp2| function in the provided \texttt{cnn.py} file.
+
+The network should have two hidden layers: one with 128 rectified linear (`relu') units, and one with 64 rectified linear units.  The output should be a fully-connected layer of 10 units with the softmax activation.  The \texttt{cnn.py} file contains an example implementation of a network with a single hidden layer in the \verb|mlp1| function that you may template from.  The \verb|main| function will test your program for you; you may add any tests that you like.
+It will also create a file called \texttt{examples.png} that contains example images from the two test sets.
+
+The function should train the network using the training features \verb|train_x| and labels \verb|train_y|, and then evaluate the accuracy of the trained network on two different test sets: \verb|test1_x|, \verb|test1_y|, and \verb|test2_x|, \verb|test2_y|.
+This is demonstrated in \verb|mlp1|.
+
+We will run your code by importing the \verb|cnn| module and calling \verb|mlp2|, so it is important that your code follow these naming conventions.
+
+Submit all of your code including provided boilerplate files in a single zip file.
+
+
+\subsection{}
+\points{30}
+Implement a convolutional neural network for classifying MNIST images by editing the \verb|cnn| function in the provided \texttt{cnn.py} file.
+
+The network should have the following architecture:
+\begin{itemize}
+    \item a layer of 32 convolutional units with a kernel size of $5\times5$ and a stride of $1,1$;
+    \item a max-pooling layer with a pool size of $2\times2$ and a stride of $2,2$;
+    \item a layer of 64 convolutional units with a kernel size of $5\times5$ and the default stride;
+    \item a max-pooling layer with a pool size of $2\times2$ and the default stride;
+    \item a \verb|Flatten| layer (to reshape the image from a 2D matrix into a single long vector);
+    \item a layer of 512 fully-connected relu units;
+    \item a layer of 10 fully-connected softmax units (the output layer).
+\end{itemize}
+
+\nin Submit all of your code including provided boilerplate files in a single zip file.
+
+
+\subsection{}
+\points{2}
+What was the accuracy of your trained 2-hidden-layer feedforward network on the two test sets?
+
+\begin{answer}{2\baselineskip}
+% type your answer here
+\end{answer}
+
+\subsection{}
+\points{2}
+What was the accuracy of your trained convolutional neural network on the two test sets?
+
+\begin{answer}{2\baselineskip}
+% type your answer here
+\end{answer}
+
+\subsection{}
+\points{10}
+Did one of your implemented networks perform substantially better on one of the test sets than the other network did?
+If so, why?  If not, why not?
+
+\begin{answer}{1.5in}
+% type your answer here
+\end{answer}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%{\small \bibliographystyle{theapa}
+%\bibliography{bibliography}}
+
+\end{document}
